@@ -1,0 +1,89 @@
+--     alias              
+local  o               =  vim.o
+local  wo              =  vim.wo
+local  bo              =  vim.bo
+local  map             =  vim.api.nvim_set_keymap
+local  cmd             =  vim.cmd
+local  create_augroup  =  vim.api.nvim_create_augroup
+local  create_autocmd  =  vim.api.nvim_create_autocmd
+
+
+-- settings
+o.hlsearch         =  true
+o.ignorecase       =  true
+o.tremguicolors    =  true
+o.termguicolor	   =  true
+o.signcolumn	   =  'auto:5'
+wo.number          =  true
+wo.relativenumber  =  true
+wo.linebreak       =  true
+wo.cursorline      =  true
+wo.spell           =  false
+--o.softtabstop      =  4
+--o.shiftwidth       =  4
+
+
+
+-- map
+map('n','<Space>', '',{})
+o.mapleader = ''
+
+-- n:norm i:insert v:visual !cmd
+options = { noremap = true }
+map('i'  ,'jk'       ,'<esc>'                       ,options)
+map('v'  ,'jk'       ,'<esc>'                       ,options)
+map('!'  ,'jk'       ,'<esc>'                       ,options)
+map('n'  ,'/<cr>'    ,':nohlsearch<cr>'             ,options)
+map('v'  ,'Y'        ,'"+y'                         ,options)
+map('v'  ,'>'        ,'>gv'                         ,options)
+map('v'  ,'<'        ,'<gv'                         ,options)
+map('n'  ,'<c-p>'    ,'<Plug>MarkdownPreviewToggle' ,options)
+map('n'  ,'<space>g' ,':Goyo 120x100%<cr>'          ,options)
+map('n'  ,'<space>G' ,':Goyo!<cr>'                  ,options)
+map('n'  ,'<c-n>'    ,':NvimTreeToggle<cr>'         ,options)
+map('n'  ,'\\'       ,'z='		            ,options)
+-- auto complete pairs
+map('i'  ,'"'        ,'""<esc>i'                    ,options)
+map('i'  ,'('        ,'()<esc>i'                    ,options)
+map('i'  ,'['        ,'[]<esc>i'                    ,options)
+map('i'  ,'{'        ,'{}<esc>i'                    ,options)
+map('i'  ,'<'        ,'<><esc>i'                    ,options)
+map('i'  ,'《'       ,'《》<esc>i'                  ,options)
+map('i'  ,'\''       ,'\'\'<esc>i'                  ,options)
+map('i'  ,'`'        ,'``<esc>i'                    ,options)
+
+
+-- autocmd
+create_augroup("bufcheck", {clear=true})
+create_autocmd({"BufRead","BufNewFile"}, {
+	group = "bufcheck",
+	pattern = {"*.md"},
+	command = "set spell foldcolumn=4"
+})
+
+create_autocmd("BufRead", {
+	group = "bufcheck",
+	pattern = {"*.hs"},
+	command = "set foldmethod=marker foldcolumn=2"
+})
+
+-- plugins
+require('plugins')
+
+-- smooth scroll
+require('neoscroll').setup()
+-- color scheme
+cmd [[colorscheme tokyonight-night]]
+-- status line scheme
+require('lualine').setup{
+	options = { theme = 'papercolor_dark',
+	section_separators = '',
+	component_separators = ''
+	}
+}
+-- markdown folding
+cmd [[let g:markdown_folding=1]]
+-- code color
+cmd("let g:Hexokinase_highlighters = ['sign_column']")
+-- file explorer
+require("nvim-tree").setup()
