@@ -23,7 +23,6 @@ map('n'  ,'<c-j>'    ,'Lj``j'		           		,options)
 map('n'  ,'<c-k>'    ,'Hk``k'		            	,options)
 map('v'  ,'<space>f' ,'"+ygvd:r !xclip -o -sel clip |column -s  \' \' -o \' | \' -t <cr>' ,options) -- used to format markdown table.
 map('v'  ,'<space>i' ,'"+ygvdk:r !xclip -o -sel clip |column -t <cr>' ,options) -- used to indent line.
-map('n'  ,'Q'        ,':qa!<cr>'                    ,options)
 map('v'  ,'<Down>'   ,'<esc>jddgvo<esc>Pgvo'        ,options) -- block down
 map('v'  ,'<Up>'     ,'o<esc>kddgvo<esc>pgv'        ,options) -- block up
 -- auto complete pairs
